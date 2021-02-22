@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   togglePersonsHandler = () => {
-    this.setState({ showPersons : !this.state.showPersons });
+    this.setState({ showPersons: !this.state.showPersons });
   }
 
   render() {
@@ -80,6 +80,21 @@ class App extends Component {
       cursor: 'pointer'
     }
 
+    let person = null;
+
+    if (this.state.showPersons) {
+      person = (
+        <div>
+          {this.state.persons.map(person => {
+            return <Person
+              name={person.name}
+              age={person.age} />
+          })}
+        </div>
+
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hi I am a React app function </h1>
@@ -89,28 +104,8 @@ class App extends Component {
           onClick={this.togglePersonsHandler}>
           Switch Name
         </button>
-        { this.state.showPersons ?     
-          <div>
 
-            <Person
-              name={this.state.persons[0].name}
-              gender='Male'
-              age={this.state.persons[0].age} />
-
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              changed={this.nameChangedHandler}
-            >Hobbies: Not working!!!
-            </Person>
-
-            <Person
-              name={this.state.persons[2].name}
-              gender='Male'
-              age={this.state.persons[2].age}
-            />
-          </div> : null
-        }
+        {person}
 
       </div>
     );
