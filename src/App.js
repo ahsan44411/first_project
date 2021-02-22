@@ -40,11 +40,12 @@ class App extends Component {
       { name: 'Areeb', age: 25 },
       { name: 'Ahsan', age: 23 },
       { name: 'Taha', age: 17 },
-    ]
+    ],
+    showPersons: false
   }
 
 
-  switchNameHandler = (newName) => {
+  togglePersonsHandler = (newName) => {
     this.setState({
       persons: [
         { name: newName, age: 30 },
@@ -65,6 +66,9 @@ class App extends Component {
     })
   }
 
+  togglePersonsHandler = () => {
+    this.setState({ showPersons : !this.state.showPersons });
+  }
 
   render() {
 
@@ -82,28 +86,31 @@ class App extends Component {
 
         <button
           style={style}
-          onClick={this.switchNameHandler.bind(this, 'Areeb Mukhtar')}>
+          onClick={this.togglePersonsHandler}>
           Switch Name
-          </button>
+        </button>
+        { this.state.showPersons ?     
+          <div>
 
-        <Person
-          name={this.state.persons[0].name}
-          gender='Male'
-          age={this.state.persons[0].age} />
+            <Person
+              name={this.state.persons[0].name}
+              gender='Male'
+              age={this.state.persons[0].age} />
 
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Also Areeb')}
-          changed={this.nameChangedHandler}
-        >Hobbies: Not working!!!
-      </Person>
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              changed={this.nameChangedHandler}
+            >Hobbies: Not working!!!
+            </Person>
 
-        <Person
-          name={this.state.persons[2].name}
-          gender='Male'
-          age={this.state.persons[2].age}
-        />
+            <Person
+              name={this.state.persons[2].name}
+              gender='Male'
+              age={this.state.persons[2].age}
+            />
+          </div> : null
+        }
 
       </div>
     );
