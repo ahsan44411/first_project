@@ -1,7 +1,8 @@
 import './App.css';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Person from './Person/Preson';
+import Persons from '../components/Persons/Persons';
+
 // import Radium, { StyleRoot } from 'radium';\
 
 
@@ -115,40 +116,23 @@ class App extends Component {
     if (this.state.showPersons) {
       person = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deleteNameHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
+          <Persons 
+            persons={this.state.persons}
+            clicked={this.deleteNameHandler}
+            changed={this.nameChangedHandler}
+            />
         </div>
       );
 
     }
     // let classes = ['red', 'bold'].join(' ');
 
-    const classes = []
 
-    if (this.state.persons.length <= 2) {
-      classes.push('red');
-    }
-    if (this.state.persons.length < 1) {
-      classes.push('bold');
-    }
 
 
     return (
       <div className="App">
-        <p className={classes.join(' ')}>Hi I am a React app function </p>
-
-        <StyledButton
-          alt={this.state.showPersons}
-          onClick={this.togglePersonsHandler}>
-          Switch Name
-        </StyledButton>
-
+        
         {person}
 
       </div>
