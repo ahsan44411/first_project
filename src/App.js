@@ -1,6 +1,9 @@
 import './App.css';
-import React, { Component } from 'react'
-import Person from './Person/Preson'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Person from './Person/Preson';
+// import Radium, { StyleRoot } from 'radium';\
+
 
 // function App() {
 //   return (
@@ -93,13 +96,19 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
+    const StyledButton = styled.button`
+      background-color: ${props => props.alt ? 'red' : 'green'};
+      color: white;
+      font: inherit;
+      border: 1px solid blue;
+      padding: 8px;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: ${props => props.alt ? 'black' : 'white'};
+      }
+    `;
 
     let person = null;
 
@@ -111,23 +120,34 @@ class App extends Component {
               click={() => this.deleteNameHandler(index)}
               name={person.name}
               age={person.age}
-              key={person.id} 
-              changed={(event) => this.nameChangedHandler(event, person.id)}/>
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)} />
           })}
         </div>
-
       );
+
     }
+    // let classes = ['red', 'bold'].join(' ');
+
+    const classes = []
+
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length < 1) {
+      classes.push('bold');
+    }
+
 
     return (
       <div className="App">
-        <h1>Hi I am a React app function </h1>
+        <p className={classes.join(' ')}>Hi I am a React app function </p>
 
-        <button
-          style={style}
+        <StyledButton
+          alt={this.state.showPersons}
           onClick={this.togglePersonsHandler}>
           Switch Name
-        </button>
+        </StyledButton>
 
         {person}
 
@@ -135,16 +155,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;
-
-
-
-// state = {
-//   persons: [
-//     { name: 'Ahsan', age: '25' },
-//     { name: 'Taha', gender: 'Man', age: '20' },
-//     { name: 'Areeb', age: '27' },
-//   ]
-// }
-
-
